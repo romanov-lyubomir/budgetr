@@ -1,2 +1,3 @@
 # budgetr
-An expense tracker app, built with Flutter
+
+A Flutter application for saving and tracking your expenses

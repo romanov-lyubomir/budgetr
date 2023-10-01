@@ -1,0 +1,176 @@
+{
+    "user_language": "English",
+    "@user_language": {
+        "description": "English"
+    },
+    "languageFlagCode": "us",
+    "@languageFlagCode": {
+        "description": "Language Flag Code"
+    },
+    "filtersAndOrder": "Filters and order",
+    "@filtersAndOrder": {
+        "description": "Filters and order"
+    },
+    "orderBySum": "Order by sum",
+    "@orderBySum": {
+        "description": "Order by sum"
+    },
+    "lowToHigh": "Low to high",
+    "@lowToHigh": {
+        "description": "Low to high"
+    },
+    "highToLow": "High to low",
+    "@highToLow": {
+        "description": "High to low"
+    },
+    "orderByDate": "Order by date",
+    "@orderByDate": {
+        "description": "Order by date"
+    },
+    "recentFirst": "Recent first",
+    "@recentFirst": {
+        "description": "Recent first"
+    },
+    "oldFirst": "Old first",
+    "@oldFirst": {
+        "description": "Old first"
+    },
+    "orderByCategory": "Order by category",
+    "@orderByCategory": {
+        "description": "Order by category"
+    },
+    "orderByName": "Order by name",
+    "@orderByName": {
+        "description": "Order by name"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings"
+    },
+    "showData": "Show data",
+    "@showData": {
+        "description": "Show data"
+    },
+    "clearData": "Clear data",
+    "@clearData": {
+        "description": "Clear data"
+    },
+    "language": "Language",
+    "@language": {
+        "description": "Language"
+    },
+    "title": "Title",
+    "@title": {
+        "description": "Title"
+    },
+    "sum": "Sum",
+    "@sum": {
+        "description": "Sum"
+    },
+    "date": "Date",
+    "@date": {
+        "description": "Date"
+    },
+    "category": "Category",
+    "@category": {
+        "description": "Category"
+    },
+    "food": "Food",
+    "@food": {
+        "description": "Food"
+    },
+    "transportation": "Transportation",
+    "@transportation": {
+        "description": "Transportation"
+    },
+    "leisure": "Leisure",
+    "@leisure": {
+        "description": "Leisure"
+    },
+    "studies": "Studies",
+    "@studies": {
+        "description": "Studies"
+    },
+    "bills": "Bills",
+    "@bills": {
+        "description": "Bills"
+    },
+    "others": "Others",
+    "@others": {
+        "description": "Others"
+    },
+    "selectDate": "Select date",
+    "@selectDate": {
+        "description": "Select date"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Cancel"
+    },
+    "save": "Save",
+    "@save": {
+        "description": "Save"
+    },
+    "noExpensesAdded": "No expenses added",
+    "@noExpensesAdded": {
+        "description": "No expenses added"
+    },
+    "theme": "Theme",
+    "@theme": {
+        "description": "Theme"
+    },
+    "dark": "Dark",
+    "@dark": {
+        "description": "Dark"
+    },
+    "light": "Light",
+    "@light": {
+        "description": "Light"
+    },
+    "currency": "Currency",
+    "@currency": {
+        "description": "Currency"
+    },
+    "color": "Color",
+    "@color": {
+        "description": "Color"
+    },
+    "blue": "Blue",
+    "@blue": {
+        "description": "Blue"
+    },
+    "green": "Green",
+    "@green": {
+        "description": "Green"
+    },
+    "pink": "Pink",
+    "@pink": {
+        "description": "Pink"
+    },
+    "gold": "Gold",
+    "@gold": {
+        "description": "Gold"
+    },
+    "orange": "Orange",
+    "@orange": {
+        "description": "Orange"
+    },
+    "purple": "Purple",
+    "@purple": {
+        "description": "Purple"
+    },
+    "welcomeTo": "Welcome to {name}",
+    "@welcomeTo": {
+        "description": "welcomeTo",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "appDescription": "An app to manage your expenses",
+    "@appDescription": {
+        "description": "App description"
+    },
+    "appDescription": "An app that helps you manage your expenses."
+}

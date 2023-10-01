@@ -1,0 +1,20 @@
+const allCurrencies = {
+  'EUR': '€',
+  'BGN': 'лв',
+  'USD': '\$',
+  'GBP': '£',
+  'CHF': 'Fr',
+  'JPY': '¥',
+  'HUF': 'Ft',
+  'CZK': 'Kč',
+  'PLN': 'zł',
+  'SEK': 'kr',
+  'NOK': 'kr',
+  'DKK': 'kr',
+  'RON': 'lei',
+  'RSD': 'din',
+  'TRY': '₺',
+  'CAD': '\$',
+  'AUD': '\$',
+  'NZD': '\$'
+};
