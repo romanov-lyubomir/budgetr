@@ -54,14 +54,14 @@ class _ExpensesState extends State<Expenses> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text(
-          'Expense deleted',
+        content: Text(
+          AppLocalizations.of(context)?.expenseDeleted ?? 'Expense deleted',
         ),
         duration: const Duration(
           seconds: 2,
         ),
         action: SnackBarAction(
-          label: 'Undo',
+          label: AppLocalizations.of(context)?.undo ?? 'Undo',
           onPressed: () {
             setState(() {
               expensesBox.add(

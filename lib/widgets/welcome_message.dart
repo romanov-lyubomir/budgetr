@@ -54,29 +54,29 @@ class WelcomeMessage extends StatelessWidget {
                     'assets/icon_outlined.png',
                     height: 200,
                   ),
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Welcome to Budgetr',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.welcomeTo("Budgetr"),
+                        style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          'An app that helps manage your expenses.',
+                          AppLocalizations.of(context)!.appDescription,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ],

@@ -41,5 +41,15 @@
     "orange": "Laranja",
     "purple": "Roxo",
     "welcomeTo": "Bem-vindos ao {name}",
-    "appDescription": "Uma aplicação para gerenciar suas despesas."
+    "appDescription": "Uma aplicação para gerenciar suas despesas.",
+    "titleIsEmpty": "O título está vazio",
+    "sumIsEmpty": "A soma está vazia",
+    "sumIsNotANumber": "A soma não é um número",
+    "sumIsNegative": "A soma é negativa",
+    "error": "Erro",
+    "expenseDeleted": "Despesa excluída",
+    "newExpense": "Nova despesa",
+    "editExpense": "Editar despesa",
+    "undo": "Desfazer",
+    "dateNotSelected": "Nenhuma data selecionada"
 }

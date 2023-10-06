@@ -41,5 +41,15 @@
     "orange": "Оранжево",
     "purple": "Лилаво",
     "welcomeTo": "Добре дошли в {name}",
-    "appDescription": "Приложение за управление на Вашите разходи"
+    "appDescription": "Приложение за управление на Вашите разходи",
+    "titleIsEmpty": "Полето за заглавието е празно",
+    "sumIsEmpty": "Полето за сумата е празно",
+    "sumIsNotANumber": "Сумата не е число",
+    "sumIsNegative": "Сумата е отрицателна",
+    "error": "Грешка",
+    "expenseDeleted": "Разходът е изтрит",
+    "newExpense": "Нов разход",
+    "editExpense": "Редактиране на разход",
+    "undo": "Отмяна",
+    "dateNotSelected": "Hе е избрана дата"
 }

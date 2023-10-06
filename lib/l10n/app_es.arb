@@ -41,5 +41,15 @@
     "orange": "Naranja",
     "purple": "Morado",
     "welcomeTo": "Bienvenidos a {name}",
-    "appDescription": "Una aplicación para gestionar sus gastos."
+    "appDescription": "Una aplicación para gestionar sus gastos.",
+    "titleIsEmpty": "El título está vacío",
+    "sumIsEmpty": "La suma está vacía",
+    "sumIsNotANumber": "La suma no es un número",
+    "sumIsNegative": "La suma es negativa",
+    "error": "Error",
+    "expenseDeleted": "Gasto eliminado",
+    "newExpense": "Nuevo gasto",
+    "editExpense": "Editar gasto",
+    "undo": "Deshacer",
+    "dateNotSelected": "Ninguna fecha seleccionada"
 }

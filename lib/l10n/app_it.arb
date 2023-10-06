@@ -41,5 +41,15 @@
     "orange": "Arancione",
     "purple": "Viola",
     "welcomeTo": "Benvenuti a {name}",
-    "appDescription": "Una applicazione per tenere traccia delle spese."
+    "appDescription": "Una applicazione per tenere traccia delle spese.",
+    "titleIsEmpty": "Il titolo è vuoto",
+    "sumIsEmpty": "La somma è vuota",
+    "sumIsNotANumber": "La somma non è un numero",
+    "sumIsNegative": "La somma è negativa",
+    "error": "Errore",
+    "expenseDeleted": "Spesa eliminata",
+    "newExpense": "Nuova spesa",
+    "editExpense": "Modifica spesa",
+    "undo": "Annulla",
+    "dateNotSelected": "Nessuna data selezionata"
 }

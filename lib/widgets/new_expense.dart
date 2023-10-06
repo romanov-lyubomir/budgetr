@@ -44,15 +44,23 @@ class _NewExpenseState extends State<NewExpense> {
     final date = _selectedDate;
     final category = _selectedCategory;
     try {
-      if (title.isEmpty) throw 'Title is empty';
-      if (enteredAmount.isEmpty) throw 'Sum is empty';
+      if (title.isEmpty) {
+        throw AppLocalizations.of(context)?.titleIsEmpty ?? 'Title is empty';
+      }
+      if (enteredAmount.isEmpty) {
+        throw AppLocalizations.of(context)?.sumIsEmpty ?? 'Sum is empty';
+      }
       if (parsedEnteredAmount == null) {
-        throw 'Amount is not a number';
+        throw AppLocalizations.of(context)?.sumIsNotANumber ??
+            'Sum is not a number';
       }
       if (parsedEnteredAmount < 0) {
-        throw 'Amount is negative';
+        throw AppLocalizations.of(context)?.sumIsNegative ?? 'Sum is negative';
       }
-      if (date == null) throw 'Date is not selected';
+      if (date == null) {
+        throw AppLocalizations.of(context)?.dateNotSelected ??
+            'Date is not selected';
+      }
       widget.onAddExpense(
         ExpenseModel(
           title: title,
@@ -83,7 +91,9 @@ class _NewExpenseState extends State<NewExpense> {
         showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Error'),
+            title: Text(
+              AppLocalizations.of(context)?.error ?? 'Error',
+            ),
             content: Text(e.toString()),
             actions: [
               TextButton(
@@ -105,7 +115,9 @@ class _NewExpenseState extends State<NewExpense> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Expense'),
+        title: Text(
+          AppLocalizations.of(context)?.newExpense ?? 'New Expense',
+        ),
       ),
       body: LayoutBuilder(
         builder: (ctx, constraints) {

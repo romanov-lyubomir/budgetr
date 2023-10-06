@@ -41,5 +41,15 @@
     "orange": "Orange",
     "purple": "Lila",
     "welcomeTo": "Willkommen bei {name}",
-    "appDescription": "Eine Applikation, die Ihnen hilft, Ihre Ausgaben zu verwalten"
+    "appDescription": "Eine Applikation, die Ihnen hilft, Ihre Ausgaben zu verwalten",
+    "titleIsEmpty": "Der Titel ist leer",
+    "sumIsEmpty": "Die Summe ist leer",
+    "sumIsNotANumber": "Die Summe ist keine Zahl",
+    "sumIsNegative": "Die Summe ist negativ",
+    "error": "Fehler",
+    "expenseDeleted": "Ausgabe gelöscht",
+    "newExpense": "Neue Ausgabe",
+    "editExpense": "Ausgabe bearbeiten",
+    "undo": "Rückgängig machen",
+    "dateNotSelected": "Kein Datum ausgewählt"
 }

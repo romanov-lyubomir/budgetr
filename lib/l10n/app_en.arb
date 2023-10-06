@@ -176,5 +176,44 @@
     "@appDescription": {
         "description": "App description"
     },
-    "appDescription": "An app that helps you manage your expenses."
+    "titleIsEmpty": "Title is empty",
+    "@titleIsEmpty": {
+        "description": "Title is empty"
+    },
+    "sumIsEmpty": "Sum is empty",
+    "@sumIsEmpty": {
+        "description": "Sum is empty"
+    },
+    "sumIsNotANumber": "Sum is not a number",
+    "@sumIsNotANumber": {
+        "description": "Sum is not a number"
+    },
+    "sumIsNegative": "Sum is negative",
+    "@sumIsNegative": {
+        "description": "Sum is negative"
+    },
+    "error": "Error",
+    "@error": {
+        "description": "Error"
+    },
+    "expenseDeleted": "Expense deleted",
+    "@expenseDeleted": {
+        "description": "Expense deleted"
+    },
+    "newExpense": "New expense",
+    "@newExpense": {
+        "description": "New expense"
+    },
+    "editExpense": "Edit expense",
+    "@editExpense": {
+        "description": "Edit expense"
+    },
+    "undo": "Undo",
+    "@undo": {
+        "description": "Undo"
+    },
+    "dateNotSelected": "Date is not selected",
+    "@dateNotSelected": {
+        "description": "Date is not selected"
+    }
 }

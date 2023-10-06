@@ -57,7 +57,9 @@ class _EditExpenseState extends State<EditExpense> {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit expense'),
+        title: Text(
+          AppLocalizations.of(context)?.editExpense ?? 'Edit Expense',
+        ),
       ),
       body: LayoutBuilder(
         builder: (ctx, constraints) {
@@ -192,7 +194,9 @@ class _EditExpenseState extends State<EditExpense> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Cancel'),
+                        child: Text(
+                          AppLocalizations.of(context)?.cancel ?? 'Cancel',
+                        ),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -204,13 +208,24 @@ class _EditExpenseState extends State<EditExpense> {
                           final date = _selectedDate;
                           final category = _selectedCategory;
                           try {
-                            if (title.isEmpty) throw 'Title is empty';
-                            if (enteredAmount.isEmpty) throw 'Sum is empty';
+                            if (title.isEmpty) {
+                              throw AppLocalizations.of(context)
+                                      ?.titleIsEmpty ??
+                                  'Title is empty';
+                            }
+                            if (enteredAmount.isEmpty) {
+                              throw AppLocalizations.of(context)?.sumIsEmpty ??
+                                  'Sum is empty';
+                            }
                             if (parsedEnteredAmount == null) {
-                              throw 'Amount is not a number';
+                              throw AppLocalizations.of(context)
+                                      ?.sumIsNotANumber ??
+                                  'Sum is not a number';
                             }
                             if (parsedEnteredAmount < 0) {
-                              throw 'Amount is negative';
+                              throw AppLocalizations.of(context)
+                                      ?.sumIsNegative ??
+                                  'Sum is negative';
                             }
                             widget.onEditExpense(
                               ExpenseModel(
@@ -232,7 +247,10 @@ class _EditExpenseState extends State<EditExpense> {
                               showCupertinoDialog(
                                 context: context,
                                 builder: (ctx) => CupertinoAlertDialog(
-                                  title: const Text('Error'),
+                                  title: Text(
+                                    AppLocalizations.of(context)?.error ??
+                                        'Error',
+                                  ),
                                   content: Text(e.toString()),
                                   actions: [
                                     CupertinoDialogAction(
@@ -248,7 +266,9 @@ class _EditExpenseState extends State<EditExpense> {
                               showDialog(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
-                                  title: const Text('Error'),
+                                  title: const Text(
+                                    'Error',
+                                  ),
                                   content: Text(e.toString()),
                                   actions: [
                                     TextButton(
@@ -263,7 +283,9 @@ class _EditExpenseState extends State<EditExpense> {
                             }
                           }
                         },
-                        child: const Text('Save'),
+                        child: Text(
+                          AppLocalizations.of(context)?.save ?? 'Save',
+                        ),
                       )
                     ],
                   ),

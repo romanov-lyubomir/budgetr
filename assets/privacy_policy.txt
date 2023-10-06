@@ -1,0 +1,1 @@
+This app stores data to the user's phone with a NoSQL database
