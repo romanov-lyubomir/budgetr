@@ -18,14 +18,6 @@ class ExpenseItem extends StatefulWidget {
 }
 
 class _ExpenseItemState extends State<ExpenseItem> {
-  final categoryColors = {
-    'Food': Colors.red.shade900,
-    'Transportation': Colors.blue.shade900,
-    'Studies': Colors.purple.shade900,
-    'Bills': Colors.orange.shade900,
-    'Others': Colors.grey.shade900,
-  };
-
   @override
   Widget build(BuildContext context) {
     var currency = allCurrencies[appDataBox.get(
@@ -48,16 +40,16 @@ class _ExpenseItemState extends State<ExpenseItem> {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color:
-                  categoryColors[widget.expense.category]?.withOpacity(0.4) ??
-                      Colors.grey.withOpacity(0.4),
+              color: categories[widget.expense.category]!['color']
+                      .withOpacity(0.4) ??
+                  Colors.grey.withOpacity(0.4),
               blurRadius: 20,
               offset: const Offset(5, 5),
             ),
           ],
         ),
         child: Card(
-          color: categoryColors[widget.expense.category],
+          color: categories[widget.expense.category]!['color'],
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
@@ -90,7 +82,7 @@ class _ExpenseItemState extends State<ExpenseItem> {
                           Row(
                             children: [
                               Icon(
-                                categories[widget.expense.category],
+                                categories[widget.expense.category]!['icon'],
                                 color: Colors.white,
                               ),
                               const SizedBox(

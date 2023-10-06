@@ -10,14 +10,10 @@ String getDescriptiveTheme(BuildContext context, String databaseTheme) {
       ? AppLocalizations.of(context)?.light ?? 'Light'
       : AppLocalizations.of(context)?.dark ?? 'Dark';
 
-  switch (databaseTheme) {
-    case 'Auto':
-      return 'Auto ($autoTheme)';
-    case 'Light':
-      return AppLocalizations.of(context)?.light ?? 'Light';
-    case 'Dark':
-      return AppLocalizations.of(context)?.dark ?? 'Dark';
-    default:
-      return '';
-  }
+  return {
+        'Auto': 'Auto ($autoTheme)',
+        'Light': AppLocalizations.of(context)?.light ?? 'Light',
+        'Dark': AppLocalizations.of(context)?.dark ?? 'Dark',
+      }[databaseTheme] ??
+      'Unknown theme';
 }

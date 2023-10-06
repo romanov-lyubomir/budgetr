@@ -19,6 +19,7 @@
     "date": "Datum",
     "category": "Kategorie",
     "food": "Essen",
+    "groceries": "Lebensmittel",
     "transportation": "Transport",
     "leisure": "Freizeit",
     "studies": "Studien",

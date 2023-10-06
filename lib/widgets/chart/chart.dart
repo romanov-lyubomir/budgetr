@@ -10,13 +10,11 @@ class Chart extends StatelessWidget {
   final List<ExpenseModel> expenses;
 
   List<ExpenseBucket> get buckets {
-    return [
-      ExpenseBucket.forCategory(expenses, 'Food'),
-      ExpenseBucket.forCategory(expenses, 'Transportation'),
-      ExpenseBucket.forCategory(expenses, 'Studies'),
-      ExpenseBucket.forCategory(expenses, 'Bills'),
-      ExpenseBucket.forCategory(expenses, 'Others'),
-    ];
+    List<ExpenseBucket> expenseBuckets = [];
+    for (String category in categories.keys.toList()) {
+      expenseBuckets.add(ExpenseBucket.forCategory(expenses, category));
+    }
+    return expenseBuckets;
   }
 
   double get maxTotalExpense {
@@ -85,7 +83,7 @@ class Chart extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Icon(
-                          categories[bucket.category],
+                          categories[bucket.category]!['icon'],
                           color: MediaQuery.of(context).platformBrightness ==
                                   Brightness.light
                               ? Theme.of(context).colorScheme.secondary

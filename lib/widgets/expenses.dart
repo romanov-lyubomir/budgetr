@@ -127,7 +127,7 @@ class _ExpensesState extends State<Expenses> {
       child: Text(
         AppLocalizations.of(context)?.noExpensesAdded ?? 'No expenses added',
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 16,
           color: Theme.of(context).colorScheme.onSecondary,
         ),
       ),

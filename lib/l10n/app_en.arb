@@ -79,6 +79,10 @@
     "@food": {
         "description": "Food"
     },
+    "groceries": "Groceries",
+    "@groceries": {
+        "description": "Groceries"
+    },
     "transportation": "Transportation",
     "@transportation": {
         "description": "Transportation"

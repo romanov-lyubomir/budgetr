@@ -107,16 +107,10 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
             foregroundColor: onPrimary,
           ),
         ),
-        textTheme: GoogleFonts.ubuntuTextTheme().copyWith(
-          titleLarge: GoogleFonts.ubuntuTextTheme().titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 16,
-              ),
-        ),
+        textTheme: GoogleFonts.ubuntuTextTheme(),
         inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(
-            color: Color(0xFF534341),
+            color: Color.fromARGB(255, 83, 67, 65),
           ),
         ),
       ),
@@ -143,13 +137,7 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
             foregroundColor: onPrimary,
           ),
         ),
-        textTheme: GoogleFonts.ubuntuTextTheme().copyWith(
-          titleLarge: GoogleFonts.ubuntuTextTheme().titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 16,
-              ),
-        ),
+        textTheme: GoogleFonts.ubuntuTextTheme(),
         inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(
             color: Color.fromARGB(255, 182, 159, 156),

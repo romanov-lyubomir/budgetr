@@ -1,7 +1,7 @@
 import 'package:budgetr/functions/hive_boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../widgets/currency_list_tile.dart';
+import 'package:budgetr/widgets/currency_list_tile.dart';
 import 'package:budgetr/functions/get_theme.dart';
 import 'package:budgetr/functions/currencies.dart';
 import 'package:budgetr/functions/colors.dart';

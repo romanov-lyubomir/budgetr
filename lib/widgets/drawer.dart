@@ -69,9 +69,7 @@ class _MainDrawerState extends State<MainDrawer> {
                           'Filters and order',
                       style: TextStyle(
                         fontSize: 24,
-                        color: getTheme(context) == 'light'
-                            ? Colors.white
-                            : Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ),
