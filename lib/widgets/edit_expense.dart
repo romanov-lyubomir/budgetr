@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:budgetr/functions/currencies.dart';
+import 'package:budgetr/functions/hive_boxes.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetr/models/expense.dart';
-import 'package:intl/intl.dart';
+import 'package:budgetr/functions/formatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:budgetr/functions/categories.dart';
-
-final formatter = DateFormat.yMd();
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditExpense extends StatefulWidget {
   const EditExpense({
@@ -27,8 +28,10 @@ class EditExpense extends StatefulWidget {
 
 class _EditExpenseState extends State<EditExpense> {
   final _titleController = TextEditingController();
-  DateTime? _selectedDate;
-  String _selectedCategory = "Leisure";
+  final _amountController = TextEditingController();
+  late String _selectedCategory;
+  late DateTime _selectedDate;
+  late Icon _selectedCategoryIcon;
 
   @override
   void initState() {
@@ -37,9 +40,10 @@ class _EditExpenseState extends State<EditExpense> {
     _selectedDate = widget.expenseToBeEdited.date;
     _selectedCategory = widget.expenseToBeEdited.category;
     _amountController.text = widget.expenseToBeEdited.amount.toString();
+    _selectedCategoryIcon = Icon(
+      categories[widget.expenseToBeEdited.category]!['icon'],
+    );
   }
-
-  final _amountController = TextEditingController();
 
   @override
   void dispose() {
@@ -51,13 +55,15 @@ class _EditExpenseState extends State<EditExpense> {
   @override
   Widget build(BuildContext context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
-    return LayoutBuilder(
-      builder: (ctx, constraints) {
-        return SizedBox(
-          height: double.infinity,
-          child: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit expense'),
+      ),
+      body: LayoutBuilder(
+        builder: (ctx, constraints) {
+          return SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
+              padding: EdgeInsets.fromLTRB(16, 16, 16, keyboardSpace + 16),
               child: Column(
                 children: <Widget>[
                   TextField(
@@ -65,72 +71,121 @@ class _EditExpenseState extends State<EditExpense> {
                     decoration: const InputDecoration(labelText: 'Title'),
                     maxLength: 50,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _amountController,
-                          decoration: const InputDecoration(
-                            suffix: Text(' €'),
-                            labelText: 'Sum',
-                          ),
-                          maxLength: 50,
-                          keyboardType: TextInputType.number,
-                        ),
+                  TextField(
+                    controller: _amountController,
+                    decoration: InputDecoration(
+                      suffix: Text(
+                        allCurrencies[appDataBox.get(
+                          'currency',
+                          defaultValue: 'EUR',
+                        )]!,
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              _selectedDate == null
-                                  ? 'Selected Date'
-                                  : formatter.format(_selectedDate!),
-                            ),
-                            IconButton(
-                              onPressed: () async {
-                                final now = DateTime.now();
-                                final firstDate =
-                                    DateTime(now.year - 1, now.month, now.day);
-                                final pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: now,
-                                  firstDate: firstDate,
-                                  lastDate: now,
-                                );
-                                setState(() {
-                                  _selectedDate = pickedDate;
-                                });
-                              },
-                              icon: const Icon(Icons.calendar_month),
-                            ),
-                          ],
+                      labelText: 'Sum',
+                    ),
+                    maxLength: 50,
+                    keyboardType: TextInputType.number,
+                  ),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: _selectedCategoryIcon,
+                    title: Text(
+                      AppLocalizations.of(context)?.category ?? 'Category',
+                      style: TextStyle(
+                        color: Theme.of(context)
+                            .inputDecorationTheme
+                            .labelStyle!
+                            .color,
+                      ),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          supportedCategoriesLang(
+                            context,
+                            _selectedCategory,
+                          ),
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .labelStyle!
+                                        .color,
+                                  ),
                         ),
-                      )
-                    ],
+                        const SizedBox(width: 8),
+                        const Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
+                    onTap: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        useSafeArea: true,
+                        context: context,
+                        builder: (ctx) => SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          width: double.infinity,
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  ...categories.keys.toList().map(
+                                        (supportedCategory) => ListTile(
+                                          leading: Icon(
+                                            categories[supportedCategory]![
+                                                'icon'],
+                                          ),
+                                          title: Text(
+                                            supportedCategoriesLang(
+                                              context,
+                                              supportedCategory,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              _selectedCategory =
+                                                  supportedCategory;
+                                              _selectedCategoryIcon = Icon(
+                                                  categories[
+                                                          supportedCategory]![
+                                                      'icon']);
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Row(
                     children: [
-                      DropdownButton(
-                        value: _selectedCategory,
-                        items: categories.keys.toList().map(
-                          (category) {
-                            return DropdownMenuItem(
-                              value: category,
-                              child: Text(category),
-                            );
-                          },
-                        ).toList(),
-                        onChanged: (value) {
+                      Text(
+                        formatter.format(_selectedDate),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          final now = DateTime.now();
+                          final firstDate =
+                              DateTime(now.year - 1, now.month, now.day);
+                          final pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: now,
+                            firstDate: firstDate,
+                            lastDate: now,
+                          );
                           setState(() {
-                            if (value == null) {
-                              return;
-                            }
-                            _selectedCategory = value;
+                            if (pickedDate == null) return;
+                            _selectedDate = pickedDate;
                           });
                         },
+                        icon: const Icon(Icons.calendar_month),
                       ),
                       const Spacer(),
                       TextButton(
@@ -141,10 +196,7 @@ class _EditExpenseState extends State<EditExpense> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Dirty variables
                           final enteredAmount = _amountController.text.trim();
-
-                          // Clean variables
                           final title = _titleController.text.trim();
                           final parsedEnteredAmount = double.tryParse(
                             _amountController.text.trim(),
@@ -160,7 +212,6 @@ class _EditExpenseState extends State<EditExpense> {
                             if (parsedEnteredAmount < 0) {
                               throw 'Amount is negative';
                             }
-                            if (date == null) throw 'Date is not selected';
                             widget.onEditExpense(
                               ExpenseModel(
                                 title: widget.expenseToBeEdited.title,
@@ -219,9 +270,9 @@ class _EditExpenseState extends State<EditExpense> {
                 ],
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

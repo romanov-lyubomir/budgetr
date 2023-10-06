@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:budgetr/functions/get_theme.dart';
 import 'package:budgetr/functions/formatter.dart';
 import 'package:budgetr/functions/hive_boxes.dart';
 import 'package:budgetr/models/expense.dart';

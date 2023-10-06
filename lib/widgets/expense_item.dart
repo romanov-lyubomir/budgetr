@@ -4,6 +4,7 @@ import 'package:budgetr/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetr/functions/currency_format.dart';
 import 'package:budgetr/functions/categories.dart';
+import 'package:budgetr/widgets/edit_expense.dart';
 
 class ExpenseItem extends StatefulWidget {
   const ExpenseItem(this.expense, {required this.onEditExpense, super.key});
@@ -26,13 +27,13 @@ class _ExpenseItemState extends State<ExpenseItem> {
     )];
     return GestureDetector(
       onTap: () {
-        widget.onEditExpense(
-          widget.expense,
-          ExpenseModel(
-            title: widget.expense.title,
-            amount: widget.expense.amount,
-            category: widget.expense.category,
-            date: widget.expense.date,
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditExpense(
+              expenseToBeEdited: widget.expense,
+              onEditExpense: widget.onEditExpense,
+            ),
           ),
         );
       },
@@ -63,7 +64,9 @@ class _ExpenseItemState extends State<ExpenseItem> {
                     children: [
                       Text(
                         widget.expense.title,
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
                       ),
                       const SizedBox(height: 4),
                       Row(
