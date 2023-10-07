@@ -84,10 +84,7 @@ class Chart extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Icon(
                           categories[bucket.category]!['icon'],
-                          color: MediaQuery.of(context).platformBrightness ==
-                                  Brightness.light
-                              ? Theme.of(context).colorScheme.secondary
-                              : Colors.white,
+                          color: Colors.white,
                         ),
                       ),
                     ),

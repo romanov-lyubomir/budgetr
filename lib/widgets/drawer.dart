@@ -1,3 +1,4 @@
+import 'package:budgetr/functions/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:budgetr/functions/get_theme.dart';
@@ -37,6 +38,8 @@ class MainDrawer extends StatefulWidget {
 class _MainDrawerState extends State<MainDrawer> {
   @override
   Widget build(BuildContext context) {
+    var sorting = <String>['Date', 'Amount', 'Category'];
+    var selected = "Date";
     return Drawer(
       child: SingleChildScrollView(
         child: Column(
@@ -77,162 +80,47 @@ class _MainDrawerState extends State<MainDrawer> {
               ),
             ),
             ListTile(
+              leading: Icon(
+                Icons.sort_rounded,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
               title: Text(
-                AppLocalizations.of(context)?.orderBySum ?? 'Order by sum',
-                style: const TextStyle(
-                  fontSize: 18,
+                'Order by',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'up'),
-              title: Text(
-                AppLocalizations.of(context)?.lowToHigh ?? 'Low to high',
-              ),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => a.amount.compareTo(b.amount),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'down'),
-              title: Text(
-                AppLocalizations.of(context)?.highToLow ?? 'High to low',
-              ),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => b.amount.compareTo(a.amount),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-              },
-            ),
-            const Divider(
-              height: 1,
-              thickness: 5,
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(context)?.orderByDate ?? 'Order by date',
-                style: const TextStyle(
-                  fontSize: 18,
+              trailing: DropdownButton<String>(
+                value: selected,
+                icon: const Icon(
+                  Icons.arrow_downward_rounded,
+                  color: Colors.white,
                 ),
-              ),
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'up'),
-              title: Text(
-                AppLocalizations.of(context)?.recentFirst ?? 'Recent first',
-              ),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => b.date.compareTo(a.date),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'down'),
-              title: Text(
-                AppLocalizations.of(context)?.oldFirst ?? 'Old first',
-              ),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => a.date.compareTo(b.date),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-              },
-            ),
-            const Divider(
-              height: 1,
-              thickness: 5,
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(context)?.orderByCategory ??
-                    'Order by category',
-                style: const TextStyle(
-                  fontSize: 18,
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
-              ),
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'up'),
-              title: const Text('A-Z'),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => a.category.compareTo(b.category),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'down'),
-              title: const Text('Z-A'),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => b.category.compareTo(a.category),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-              },
-            ),
-            const Divider(
-              height: 1,
-              thickness: 5,
-            ),
-            ListTile(
-              title: Text(
-                AppLocalizations.of(context)?.orderByName ?? 'Order by name',
-                style: const TextStyle(
-                  fontSize: 18,
+                underline: Container(
+                  height: 2,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selected = newValue!;
+                  });
+                },
+                items: sorting.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                    ),
+                  );
+                }).toList(),
               ),
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'up'),
-              title: const Text('A-Z'),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => a.title.compareTo(b.title),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Arrow(direction: 'down'),
-              title: const Text('Z-A'),
-              onTap: () {
-                widget.registeredExpenses.sort(
-                  (a, b) => a.amount.compareTo(b.amount),
-                );
-                widget.onChangeOrder(widget.registeredExpenses);
-                Navigator.pop(context);
-              },
+              // Q: Why does the text not change when I select a new value?
+              // A: Because the value is not updated. You need to use a stateful widget.
             ),
           ],
         ),

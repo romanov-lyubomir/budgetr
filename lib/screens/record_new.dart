@@ -11,18 +11,18 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NewExpense extends StatefulWidget {
-  const NewExpense({super.key, required this.onAddExpense});
+class RecordNew extends StatefulWidget {
+  const RecordNew({super.key, required this.onAddExpense});
 
   final void Function(ExpenseModel) onAddExpense;
 
   @override
-  State<NewExpense> createState() {
-    return _NewExpenseState();
+  State<RecordNew> createState() {
+    return _RecordNewState();
   }
 }
 
-class _NewExpenseState extends State<NewExpense> {
+class _RecordNewState extends State<RecordNew> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
@@ -131,6 +131,12 @@ class _NewExpenseState extends State<NewExpense> {
                     decoration: InputDecoration(
                       labelText: AppLocalizations.of(context)?.title ?? 'Title',
                     ),
+                    style: TextStyle(
+                      color: Theme.of(context)
+                          .inputDecorationTheme
+                          .labelStyle!
+                          .color,
+                    ),
                     maxLength: 50,
                   ),
                   TextField(
@@ -138,6 +144,12 @@ class _NewExpenseState extends State<NewExpense> {
                     decoration: InputDecoration(
                       suffix: Text(' ${allCurrencies[selectedCurrency]}'),
                       labelText: AppLocalizations.of(context)?.sum ?? 'Sum',
+                    ),
+                    style: TextStyle(
+                      color: Theme.of(context)
+                          .inputDecorationTheme
+                          .labelStyle!
+                          .color,
                     ),
                     maxLength: 50,
                     keyboardType: TextInputType.number,

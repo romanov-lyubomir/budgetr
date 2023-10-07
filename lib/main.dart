@@ -3,24 +3,24 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:budgetr/widgets/expenses.dart';
+import 'package:budgetr/widgets/main_page.dart';
 import 'package:budgetr/l10n/l10n.dart';
 import 'package:budgetr/functions/hive_boxes.dart';
 import 'package:budgetr/functions/colors.dart';
 import 'package:budgetr/screens/welcome_screen.dart';
 import 'package:budgetr/extensions/put_if_null.dart';
 
-Color seedColor = Colors.blue;
-Color primary = Colors.blue.shade900;
-Color onPrimary = Colors.white;
-Color secondary = Colors.blue.shade700;
-Color onSecondary = Colors.white;
+// Color seedColor = Colors.blue;
+// Color primary = Colors.blue.shade900;
+// Color onPrimary = Colors.white;
+// Color secondary = Colors.blue.shade700;
+// Color onSecondary = Colors.white;
 
-void setColors(Map colors) {
-  seedColor = colors['seedColor']!;
-  primary = colors['primary']!;
-  secondary = colors['secondary']!;
-}
+// void setColors(Map colors) {
+//   seedColor = colors['seedColor']!;
+//   primary = colors['primary']!;
+//   secondary = colors['secondary']!;
+// }
 
 void main() async {
   await Hive.initFlutter();
@@ -49,6 +49,14 @@ class MainMaterialApp extends StatefulWidget {
 }
 
 class _MainMaterialAppState extends State<MainMaterialApp> {
+  Map colorData = <String, Color>{
+    'seedColor': Colors.blue,
+    'primary': Colors.blue.shade900,
+    'onPrimary': Colors.white,
+    'secondary': Colors.blue.shade700,
+    'onSecondary': Colors.white,
+  };
+
   var themeMode = ThemeMode.system;
 
   void _onChangeTheme(String newTheme) {
@@ -64,12 +72,12 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
 
   void _onChangeColor(String? newColor) {
     if (newColor == null) return;
-    newColor = newColor.toLowerCase();
+    var colors = supportedColors[newColor.toLowerCase()]!;
+    colorData["seedColor"] = colors['seedColor']!;
+    colorData["primary"] = colors['primary']!;
+    colorData["secondary"] = colors['secondary']!;
     setState(() {
       appDataBox.put('color', newColor);
-      setColors(
-        supportedColors[newColor]!,
-      );
     });
   }
 
@@ -88,23 +96,23 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
       theme: ThemeData().copyWith(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: seedColor,
-          primary: primary,
-          onPrimary: onPrimary,
-          secondary: secondary,
+          seedColor: colorData["seedColor"],
+          primary: colorData["primary"],
+          onPrimary: colorData["onPrimary"],
+          secondary: colorData["secondary"],
           onSecondary: Colors.black,
         ),
         cardTheme: const CardTheme().copyWith(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
         appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: primary,
-          foregroundColor: onPrimary,
+          backgroundColor: colorData["primary"],
+          foregroundColor: colorData["onPrimary"],
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: primary,
-            foregroundColor: onPrimary,
+            backgroundColor: colorData["primary"],
+            foregroundColor: colorData["onPrimary"],
           ),
         ),
         textTheme: GoogleFonts.ubuntuTextTheme(),
@@ -118,23 +126,23 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
-          seedColor: seedColor,
-          primary: primary,
-          onPrimary: onPrimary,
-          secondary: secondary,
+          seedColor: colorData["seedColor"],
+          primary: colorData["primary"],
+          onPrimary: colorData["onPrimary"],
+          secondary: colorData["secondary"],
           onSecondary: Colors.white,
         ),
         cardTheme: const CardTheme().copyWith(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
         appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: primary,
-          foregroundColor: onPrimary,
+          backgroundColor: colorData["primary"],
+          foregroundColor: colorData["onPrimary"],
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: primary,
-            foregroundColor: onPrimary,
+            backgroundColor: colorData["primary"],
+            foregroundColor: colorData["onPrimary"],
           ),
         ),
         textTheme: GoogleFonts.ubuntuTextTheme(),
@@ -159,7 +167,7 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
                 });
               },
             )
-          : Expenses(
+          : MainPage(
               onChangeColor: _onChangeColor,
               onChangeTheme: _onChangeTheme,
               onChangeCurrency: _onChangeCurrency,

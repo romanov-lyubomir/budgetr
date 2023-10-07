@@ -9,8 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:budgetr/functions/categories.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class EditExpense extends StatefulWidget {
-  const EditExpense({
+class RecordEdit extends StatefulWidget {
+  const RecordEdit({
     Key? key,
     required this.onEditExpense,
     required this.expenseToBeEdited,
@@ -23,10 +23,10 @@ class EditExpense extends StatefulWidget {
   final ExpenseModel expenseToBeEdited;
 
   @override
-  State<EditExpense> createState() => _EditExpenseState();
+  State<RecordEdit> createState() => _RecordEditState();
 }
 
-class _EditExpenseState extends State<EditExpense> {
+class _RecordEditState extends State<RecordEdit> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   late String _selectedCategory;

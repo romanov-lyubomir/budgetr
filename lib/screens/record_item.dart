@@ -4,10 +4,10 @@ import 'package:budgetr/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetr/functions/currency_format.dart';
 import 'package:budgetr/functions/categories.dart';
-import 'package:budgetr/widgets/edit_expense.dart';
+import 'package:budgetr/screens/record_edit.dart';
 
-class ExpenseItem extends StatefulWidget {
-  const ExpenseItem(this.expense, {required this.onEditExpense, super.key});
+class RecordItem extends StatefulWidget {
+  const RecordItem(this.expense, {required this.onEditExpense, super.key});
 
   final ExpenseModel expense;
   final void Function(
@@ -15,10 +15,10 @@ class ExpenseItem extends StatefulWidget {
       onEditExpense;
 
   @override
-  State<ExpenseItem> createState() => _ExpenseItemState();
+  State<RecordItem> createState() => _RecordItemState();
 }
 
-class _ExpenseItemState extends State<ExpenseItem> {
+class _RecordItemState extends State<RecordItem> {
   @override
   Widget build(BuildContext context) {
     var currency = allCurrencies[appDataBox.get(
@@ -30,7 +30,7 @@ class _ExpenseItemState extends State<ExpenseItem> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EditExpense(
+            builder: (context) => RecordEdit(
               expenseToBeEdited: widget.expense,
               onEditExpense: widget.onEditExpense,
             ),

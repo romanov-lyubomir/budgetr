@@ -1,15 +1,15 @@
 import 'package:budgetr/functions/hive_boxes.dart';
 import 'package:budgetr/widgets/chart/chart.dart';
-import 'package:budgetr/widgets/new_expense.dart';
+import 'package:budgetr/screens/record_new.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetr/models/expense.dart';
-import 'package:budgetr/widgets/expenses_list.dart';
+import 'package:budgetr/screens/record_list.dart';
 import 'package:budgetr/screens/settings_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:budgetr/widgets/drawer.dart';
 
-class Expenses extends StatefulWidget {
-  const Expenses({
+class MainPage extends StatefulWidget {
+  const MainPage({
     super.key,
     required this.onChangeTheme,
     required this.onChangeColor,
@@ -21,18 +21,12 @@ class Expenses extends StatefulWidget {
   final void Function(String) onChangeCurrency;
 
   @override
-  State<Expenses> createState() {
-    return _ExpensesState();
+  State<MainPage> createState() {
+    return _MainPageState();
   }
 }
 
-class _ExpensesState extends State<Expenses> {
-  _changeOrder(newExpenses) {
-    setState(() {
-      _registeredExpenses = newExpenses;
-    });
-  }
-
+class _MainPageState extends State<MainPage> {
   List<ExpenseModel> _registeredExpenses = [];
 
   void _addExpense(ExpenseModel expense) {
@@ -108,6 +102,7 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  var selectedList = "Expenses";
   @override
   Widget build(BuildContext context) {
     _registeredExpenses = expensesBox.values
@@ -134,7 +129,7 @@ class _ExpensesState extends State<Expenses> {
     );
 
     if (_registeredExpenses.isNotEmpty) {
-      mainContent = ExpensesList(
+      mainContent = RecordList(
         expenses: _registeredExpenses,
         onRemoveExpense: _deleteExpense,
         onEditExpense: _editExpense,
@@ -160,33 +155,65 @@ class _ExpensesState extends State<Expenses> {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (ctx) => NewExpense(
-                    onAddExpense: _addExpense,
-                  ),
-                ),
-              );
-            },
-          ),
         ],
         title: const Text(
           'Budgetr',
         ),
-      ),
-      drawer: MainDrawer(
-        registeredExpenses: _registeredExpenses,
-        onChangeOrder: _changeOrder,
       ),
       body: width < 600
           ? Column(
               children: <Widget>[
                 Chart(
                   expenses: _registeredExpenses,
+                ),
+                CupertinoSegmentedControl(
+                  groupValue: selectedList,
+                  children: const {
+                    "Expenses": Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Expenses"),
+                    ),
+                    "Income": Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Income"),
+                    ),
+                    "All": Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("All"),
+                    ),
+                  },
+                  onValueChanged: (String value) {
+                    setState(() {
+                      selectedList = value;
+                    });
+                  },
+                ),
+                ListTile(
+                  title: Text(
+                    {
+                      "Expenses": 'Saved Expenses',
+                      "Income": 'Saved Income',
+                      "All": 'All saved records',
+                    }[selectedList]!,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (ctx) => RecordNew(
+                            onAddExpense: _addExpense,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Expanded(
                   child: mainContent,

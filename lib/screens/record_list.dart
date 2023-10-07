@@ -1,9 +1,9 @@
 import 'package:budgetr/models/expense.dart';
-import 'package:budgetr/widgets/expense_item.dart';
+import 'package:budgetr/screens/record_item.dart';
 import 'package:flutter/material.dart';
 
-class ExpensesList extends StatelessWidget {
-  const ExpensesList({
+class RecordList extends StatelessWidget {
+  const RecordList({
     super.key,
     required this.expenses,
     required this.onRemoveExpense,
@@ -25,7 +25,7 @@ class ExpensesList extends StatelessWidget {
         onDismissed: (direction) {
           onRemoveExpense(expenses[index]);
         },
-        child: ExpenseItem(
+        child: RecordItem(
           expenses[index],
           onEditExpense: onEditExpense,
         ),
