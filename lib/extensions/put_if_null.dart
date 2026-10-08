@@ -9,9 +9,7 @@ extension AppDataBoxExtension on hive.Box {
 
   void putManyIfNull(Map<dynamic, dynamic> map) {
     map.forEach((key, value) {
-      if (get(key) == null) {
-        put(key, value);
-      }
+      if (get(key) == null) put(key, value);
     });
   }
 }

@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 
 import 'package:budgetr/widgets/chart/chart_bar.dart';
-import 'package:budgetr/models/expense.dart';
-import 'package:budgetr/functions/categories.dart';
+import 'package:budgetr/models/record.dart';
+import 'package:budgetr/global/categories.dart';
 
 class Chart extends StatelessWidget {
-  const Chart({super.key, required this.expenses});
+  const Chart({super.key, required this.records});
 
-  final List<ExpenseModel> expenses;
+  final List<RecordModel> records;
 
-  List<ExpenseBucket> get buckets {
-    List<ExpenseBucket> expenseBuckets = [];
+  List<RecordBucket> get buckets {
+    List<RecordBucket> recordBuckets = [];
     for (String category in categories.keys.toList()) {
-      expenseBuckets.add(ExpenseBucket.forCategory(expenses, category));
+      recordBuckets.add(RecordBucket.forCategory(records, category));
     }
-    return expenseBuckets;
+    return recordBuckets;
   }
 
-  double get maxTotalExpense {
-    double maxTotalExpense = 0;
+  double get maxTotal {
+    double maxTotal = 0;
 
     for (final bucket in buckets) {
-      if (bucket.totalAmount > maxTotalExpense) {
-        maxTotalExpense = bucket.totalAmount;
+      if (bucket.totalAmount > maxTotal) {
+        maxTotal = bucket.totalAmount;
       }
     }
 
-    return maxTotalExpense;
+    return maxTotal;
   }
 
   @override
@@ -70,7 +70,7 @@ class Chart extends StatelessWidget {
                     ChartBar(
                       fill: bucket.totalAmount == 0
                           ? 0
-                          : bucket.totalAmount / maxTotalExpense,
+                          : bucket.totalAmount / maxTotal,
                     )
                 ],
               ),

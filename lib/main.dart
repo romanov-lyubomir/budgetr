@@ -1,42 +1,33 @@
+import 'package:budgetr/global/theme_modes.dart' as global_theme_modes;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:budgetr/l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:budgetr/widgets/main_page.dart';
 import 'package:budgetr/l10n/l10n.dart';
-import 'package:budgetr/functions/hive_boxes.dart';
-import 'package:budgetr/functions/colors.dart';
-import 'package:budgetr/screens/welcome_screen.dart';
+import 'package:budgetr/global/hive_boxes.dart';
+import 'package:budgetr/global/colors.dart';
+import 'package:budgetr/widgets/welcome/welcome_screen.dart';
 import 'package:budgetr/extensions/put_if_null.dart';
-
-// Color seedColor = Colors.blue;
-// Color primary = Colors.blue.shade900;
-// Color onPrimary = Colors.white;
-// Color secondary = Colors.blue.shade700;
-// Color onSecondary = Colors.white;
-
-// void setColors(Map colors) {
-//   seedColor = colors['seedColor']!;
-//   primary = colors['primary']!;
-//   secondary = colors['secondary']!;
-// }
+// ignore: unused_import
+import 'package:budgetr/global/logger.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox('expensesBox');
+  await Hive.openBox('recordsBox');
   await Hive.openBox('appDataBox');
 
   appDataBox.putManyIfNull({
     'currency': 'EUR',
-    'theme': 'Auto',
-    'color': 'Blue',
+    'theme': 'auto',
+    'locale': 'auto',
+    'color': 'blue',
     'first_use': true,
   });
 
-  runApp(
-    const MainMaterialApp(),
-  );
+  runApp(const MainMaterialApp());
 }
 
 class MainMaterialApp extends StatefulWidget {
@@ -54,30 +45,31 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
     'primary': Colors.blue.shade900,
     'onPrimary': Colors.white,
     'secondary': Colors.blue.shade700,
-    'onSecondary': Colors.white,
   };
 
   var themeMode = ThemeMode.system;
 
   void _onChangeTheme(String newTheme) {
-    final themeModes = {
-      'auto': ThemeMode.system,
-      'light': ThemeMode.light,
-      'dark': ThemeMode.dark,
-    };
     setState(() {
-      themeMode = themeModes[newTheme.toLowerCase()] ?? ThemeMode.system;
+      themeMode =
+          global_theme_modes.themeModes[newTheme.toLowerCase()] ??
+          ThemeMode.system;
     });
   }
 
-  void _onChangeColor(String? newColor) {
-    if (newColor == null) return;
+  void _onChangeColor(String newColor) {
     var colors = supportedColors[newColor.toLowerCase()]!;
     colorData["seedColor"] = colors['seedColor']!;
     colorData["primary"] = colors['primary']!;
     colorData["secondary"] = colors['secondary']!;
     setState(() {
       appDataBox.put('color', newColor);
+    });
+  }
+
+  void _onChangeLanguage(String newLanguage) {
+    setState(() {
+      appDataBox.put('locale', newLanguage);
     });
   }
 
@@ -89,21 +81,21 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
 
   @override
   Widget build(BuildContext context) {
-    _onChangeTheme(appDataBox.get('theme') ?? 'auto');
     _onChangeColor(appDataBox.get('color') ?? 'blue');
 
     return MaterialApp(
       theme: ThemeData().copyWith(
-        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: colorData["seedColor"],
           primary: colorData["primary"],
           onPrimary: colorData["onPrimary"],
           secondary: colorData["secondary"],
           onSecondary: Colors.black,
+          tertiary: Colors.white,
+          onTertiary: Colors.black,
         ),
-        cardTheme: const CardTheme().copyWith(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        cardTheme: const CardThemeData(
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
         appBarTheme: const AppBarTheme().copyWith(
           backgroundColor: colorData["primary"],
@@ -117,13 +109,10 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
         ),
         textTheme: GoogleFonts.ubuntuTextTheme(),
         inputDecorationTheme: const InputDecorationTheme(
-          labelStyle: TextStyle(
-            color: Color.fromARGB(255, 83, 67, 65),
-          ),
+          labelStyle: TextStyle(color: Color.fromARGB(255, 83, 67, 65)),
         ),
       ),
       darkTheme: ThemeData.dark().copyWith(
-        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
           seedColor: colorData["seedColor"],
@@ -131,9 +120,11 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
           onPrimary: colorData["onPrimary"],
           secondary: colorData["secondary"],
           onSecondary: Colors.white,
+          tertiary: Colors.grey.shade900,
+          onTertiary: Colors.white,
         ),
-        cardTheme: const CardTheme().copyWith(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        cardTheme: const CardThemeData(
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
         appBarTheme: const AppBarTheme().copyWith(
           backgroundColor: colorData["primary"],
@@ -147,13 +138,14 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
         ),
         textTheme: GoogleFonts.ubuntuTextTheme(),
         inputDecorationTheme: const InputDecorationTheme(
-          labelStyle: TextStyle(
-            color: Color.fromARGB(255, 182, 159, 156),
-          ),
+          labelStyle: TextStyle(color: Color.fromARGB(255, 182, 159, 156)),
         ),
       ),
       supportedLocales: L10n.all,
-      localizationsDelegates: const [
+      locale: appDataBox.get('locale') != 'auto'
+          ? Locale(appDataBox.get('locale'))
+          : null,
+      localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -171,8 +163,13 @@ class _MainMaterialAppState extends State<MainMaterialApp> {
               onChangeColor: _onChangeColor,
               onChangeTheme: _onChangeTheme,
               onChangeCurrency: _onChangeCurrency,
+              onChangeLanguage: _onChangeLanguage,
             ),
-      themeMode: themeMode,
+      themeMode:
+          global_theme_modes.themeModes[appDataBox
+              .get('theme')
+              .toLowerCase()] ??
+          ThemeMode.system,
       debugShowCheckedModeBanner: false,
     );
   }

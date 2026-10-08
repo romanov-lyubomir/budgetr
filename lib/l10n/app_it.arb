@@ -41,7 +41,7 @@
     "orange": "Arancione",
     "purple": "Viola",
     "welcomeTo": "Benvenuti a {name}",
-    "appDescription": "Una applicazione per tenere traccia delle spese.",
+    "appDescription": "Un'applicazione per tenere traccia delle spese.",
     "titleIsEmpty": "Il titolo è vuoto",
     "sumIsEmpty": "La somma è vuota",
     "sumIsNotANumber": "La somma non è un numero",
